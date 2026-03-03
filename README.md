@@ -99,5 +99,5 @@ npm run dev
 
 此專案原為原生 JavaScript 版本，後以 Vue 3 重構並加入後端與資料庫：
 
-- 原生 JS 版 → [Reading-List](https://github.com/Xnerv15step/Reading-List)（若有的話）
+- 原生 JS 版 → [Reading-List](https://github.com/Xnerv15step/Reading-List)
 - Vue 重構版 → 本專案
