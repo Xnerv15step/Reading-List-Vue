@@ -3,3 +3,9 @@ backend/node_modules/
 backend/.env
 server/.env
 server/node_modules/
+.cache_ggshield
+.ggshield
+
+.env
+.cache_ggshield
+.ggshield
