@@ -13,6 +13,8 @@ const router = express.Router()
 // 載入 Controller，取得四個處理函式
 const { getBooks, createBook, updateBook, deleteBook } = require('../controllers/bookController')
 
+// 載入驗證 middleware
+const authMiddleware = require('../middleware/auth')
 
 // ============================================================
 // 路由對應
@@ -20,11 +22,9 @@ const { getBooks, createBook, updateBook, deleteBook } = require('../controllers
 // 所以這裡只需要寫 / 和 /:id
 // ============================================================
 
-router.get('/',     getBooks)     // GET    /api/books
-router.post('/',    createBook)   // POST   /api/books
-router.put('/:id',  updateBook)   // PUT    /api/books/:id
-router.delete('/:id', deleteBook) // DELETE /api/books/:id
-
-
+router.get('/',       authMiddleware, getBooks)
+router.post('/',      authMiddleware, createBook)
+router.put('/:id',    authMiddleware, updateBook)
+router.delete('/:id', authMiddleware, deleteBook)
 // 匯出路由，讓 index.js 可以使用
 module.exports = router

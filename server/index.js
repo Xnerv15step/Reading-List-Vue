@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 const booksRouter = require('./routes/books')
 app.use('/api/books', booksRouter)
 
+const authRouter = require('./routes/auth')
+app.use('/api/auth', authRouter)
+
 
 // ============================================================
 // 根路徑（確認後端是否正常運作）
