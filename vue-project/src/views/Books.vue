@@ -71,13 +71,27 @@ function showToast(msg, duration = 2000) {
 // 帶上 JWT Token，後端 middleware 驗證後才回傳資料
 // ============================================================
 async function loadBooks() {
-  const res = await axios.get('http://localhost:3000/api/books', {
-    headers: {
-      Authorization: `Bearer ${auth.token}`
+  try {
+    const res = await axios.get('http://localhost:3000/api/books', {
+      headers: {
+        // 確保 auth.token 真的有值
+        Authorization: `Bearer ${auth.token}`
+      }
+    })
+    books.value = res.data
+  } catch (error) {
+    // 這裡最關鍵：如果 401 代表 Token 壞了，直接踢回登入
+    if (error.response && error.response.status === 401) {
+      console.error('驗證失敗，清除 Token 並跳轉')
+      auth.token = ''             // 清除 Pinia 狀態
+      localStorage.removeItem('token') // 清除本地儲存
+      router.push('/login')       // 強制切換到登入頁
+    } else {
+      console.error('其他錯誤:', error)
     }
-  })
-  books.value = res.data
+  }
 }
+
 
 // 頁面載入時立即執行一次
 loadBooks()

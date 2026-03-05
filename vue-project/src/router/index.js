@@ -22,20 +22,22 @@ const router = createRouter({
 // 路由守衛（Navigation Guard）
 // 每次切換頁面前都會執行
 // ============================================================
-router.beforeEach((to, from, next) => {
-  // 從 localStorage 取得 Token
+router.beforeEach((to, from) => {
   const token = localStorage.getItem('token')
 
+  // 1. 如果要去需要登入的頁面，但沒有 Token
   if (to.meta.requiresAuth && !token) {
-    // 要去需要登入的頁面，但沒有 Token → 跳回登入頁
-    next('/login')
-  } else if (to.path === '/login' && token) {
-    // 已登入卻要去登入頁 → 跳回書單頁（避免重複登入）
-    next('/')
-  } else {
-    // 其他情況正常放行
-    next()
+    return { path: '/login' } // 直接 return 路徑，不要用 next()
   }
+
+  // 2. 如果已登入卻要去登入頁
+  if (to.path === '/login' && token) {
+    return { path: '/' }
+  }
+
+  // 3. 其他情況不回傳 (或回傳 true) 即代表放行
+  return true
 })
+
 
 export default router

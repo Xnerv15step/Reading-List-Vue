@@ -10,6 +10,18 @@ import App from './App.vue'          // 根元件
 import router from './router'        // 路由設定
 import './assets/main.css'           // 全域 CSS 樣式
 
+// 1. 建立 Axios 全域攔截器 (解決 401 自動跳轉)
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token') // 清除失效 Token
+      router.push('/login')            // 自動踢回登入頁
+    }
+    return Promise.reject(error)
+  }
+)
+
 // 建立 Vue 應用程式實例
 const app = createApp(App)
 
