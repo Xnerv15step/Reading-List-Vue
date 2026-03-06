@@ -24,8 +24,7 @@ const STATUS_LABEL = {
 }
 
 // 排序時各狀態的數字權重（數字越小排越前面）
-const STATUS_ORDER = { 已讀: 0, 進行中: 1, 待讀: 2 }
-
+const STATUS_ORDER = { 'in-progress': 0, 'to-read': 1, 'read': 2 }
 // 評分值 0–3 對應的 CSS class 後綴（空字串 = 無評分）
 // 用法：span class="rate two" → 前兩顆圓點填色
 const RATE_WORD = ['', 'one', 'two', 'three']

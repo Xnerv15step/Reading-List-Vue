@@ -8,7 +8,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/Books.vue'), // 書單頁（需登入）
+      component: () => import('../views/Books.vue'), 
+      // 書單頁（需登入）
       meta: { requiresAuth: true }                   // 標記此頁需要登入
     },
     {
